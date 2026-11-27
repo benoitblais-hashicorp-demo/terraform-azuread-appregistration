@@ -5,4 +5,6 @@
 * [Terraform azuread provider - azuread_application_password](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password)
 * [Terraform azuread provider - azuread_application_federated_identity_credential](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_federated_identity_credential)
 * [HCP Terraform dynamic provider credentials for Azure](https://developer.hashicorp.com/terraform/cloud-docs/dynamic-provider-credentials/azure-configuration)
+* [Terraform azuread provider - azuread_application_flexible_federated_identity_credential](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_flexible_federated_identity_credential)
 * [Microsoft Entra workload identity federation](https://learn.microsoft.com/entra/workload-id/workload-identity-federation)
+* [Microsoft Entra flexible federated identity credentials (preview)](https://learn.microsoft.com/entra/workload-id/workload-identities-flexible-federated-identity-credentials)

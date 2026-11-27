@@ -41,3 +41,17 @@ resource "azuread_application_federated_identity_credential" "main" {
   issuer         = each.value.issuer
   subject        = each.value.subject
 }
+
+# The following resource block is used to configure flexible federated identity credentials (preview).
+# They match incoming token claims with an expression (wildcards), so a single credential can cover multiple workspaces and run phases.
+
+resource "azuread_application_flexible_federated_identity_credential" "main" {
+  for_each = var.flexible_federated_credentials
+
+  application_id             = azuread_application.main.id
+  display_name               = each.key
+  description                = each.value.description
+  audience                   = each.value.audience
+  issuer                     = each.value.issuer
+  claims_matching_expression = each.value.claims_matching_expression
+}

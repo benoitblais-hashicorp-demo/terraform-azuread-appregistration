@@ -95,3 +95,26 @@ run "with_federated_credentials" {
     error_message = "The default audience should be api://AzureADTokenExchange."
   }
 }
+
+run "with_flexible_federated_credentials" {
+  command = plan
+
+  variables {
+    flexible_federated_credentials = {
+      tfc-project = {
+        issuer                     = "https://app.terraform.io"
+        claims_matching_expression = "claims['sub'] matches 'organization:org:project:proj:workspace:*:run_phase:*'"
+      }
+    }
+  }
+
+  assert {
+    condition     = length(azuread_application_flexible_federated_identity_credential.main) == 1
+    error_message = "One flexible federated credential should be created."
+  }
+
+  assert {
+    condition     = azuread_application_flexible_federated_identity_credential.main["tfc-project"].audience == "api://AzureADTokenExchange"
+    error_message = "The default audience should be api://AzureADTokenExchange."
+  }
+}

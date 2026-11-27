@@ -52,6 +52,32 @@ variable "federated_credentials" {
   }
 }
 
+variable "flexible_federated_credentials" {
+  type = map(object({
+    issuer                     = string
+    claims_matching_expression = string
+    audience                   = optional(string, "api://AzureADTokenExchange")
+    description                = optional(string)
+  }))
+  description = "(Optional) Map of flexible federated identity credentials (preview) to configure on the app registration. They use a claims matching expression (e.g. \"claims['sub'] matches 'organization:org:project:proj:workspace:*:run_phase:*'\") instead of an exact subject, so a single credential can cover multiple workspaces and run phases. Only supported by GitHub, GitLab and HCP Terraform issuers. The map key is used as the credential display name."
+  default     = {}
+
+  validation {
+    condition     = alltrue([for credential in values(var.flexible_federated_credentials) : startswith(credential.issuer, "https://")])
+    error_message = "Each flexible federated credential issuer must be an URL starting with https://."
+  }
+
+  validation {
+    condition     = alltrue([for credential in values(var.flexible_federated_credentials) : can(regex("^claims\\['[A-Za-z0-9_]+'\\] (eq|matches) '[^']+'", credential.claims_matching_expression))])
+    error_message = "Each flexible federated credential claims_matching_expression must start with claims['<claim>'] followed by the eq or matches operator and a single-quoted value."
+  }
+
+  validation {
+    condition     = alltrue([for credential in values(var.flexible_federated_credentials) : length(trimspace(credential.audience)) > 0])
+    error_message = "Each flexible federated credential audience must not be empty."
+  }
+}
+
 variable "owners" {
   type        = list(string)
   description = "(Optional) List of object IDs (users or service principals) that will be owners of the app registration and of the enterprise application."
