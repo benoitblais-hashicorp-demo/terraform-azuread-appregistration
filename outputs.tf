@@ -34,6 +34,11 @@ output "federated_credential_ids" {
   value       = { for name, credential in azuread_application_federated_identity_credential.main : name => credential.credential_id }
 }
 
+output "flexible_federated_credential_ids" {
+  description = "Map of flexible federated identity credential IDs, keyed by the credential display name."
+  value       = { for name, credential in azuread_application_flexible_federated_identity_credential.main : name => credential.credential_id }
+}
+
 output "service_principal_object_id" {
   description = "The object ID of the enterprise application (service principal). Null when create_service_principal is false."
   value       = one(azuread_service_principal.main[*].object_id)

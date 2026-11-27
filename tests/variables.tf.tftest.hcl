@@ -120,3 +120,55 @@ run "invalid_federated_credential_audiences" {
     var.federated_credentials,
   ]
 }
+
+run "invalid_flexible_federated_credential_issuer" {
+  command = plan
+
+  variables {
+    flexible_federated_credentials = {
+      bad = {
+        issuer                     = "http://app.terraform.io"
+        claims_matching_expression = "claims['sub'] matches 'organization:org:project:proj:workspace:*:run_phase:*'"
+      }
+    }
+  }
+
+  expect_failures = [
+    var.flexible_federated_credentials,
+  ]
+}
+
+run "invalid_flexible_federated_credential_expression" {
+  command = plan
+
+  variables {
+    flexible_federated_credentials = {
+      bad = {
+        issuer                     = "https://app.terraform.io"
+        claims_matching_expression = "organization:org:project:proj:workspace:*"
+      }
+    }
+  }
+
+  expect_failures = [
+    var.flexible_federated_credentials,
+  ]
+}
+
+run "invalid_flexible_federated_credential_audience" {
+  command = plan
+
+  variables {
+    flexible_federated_credentials = {
+      bad = {
+        issuer                     = "https://app.terraform.io"
+        claims_matching_expression = "claims['sub'] matches 'organization:org:project:proj:workspace:*:run_phase:*'"
+        audience                   = " "
+      }
+    }
+  }
+
+  expect_failures = [
+    var.flexible_federated_credentials,
+  ]
+}
