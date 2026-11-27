@@ -223,7 +223,7 @@ Description: Map of federated identity credential IDs, keyed by the credential d
 Description: The object ID of the enterprise application (service principal). Null when create\_service\_principal is false.
 
 <!-- markdownlint-enable -->
-## External Documentation
+# External Documentation
 
 * [Terraform azuread provider - azuread\_application](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application)
 * [Terraform azuread provider - azuread\_service\_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal)

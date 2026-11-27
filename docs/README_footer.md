@@ -1,4 +1,4 @@
-## External Documentation
+# External Documentation
 
 * [Terraform azuread provider - azuread_application](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application)
 * [Terraform azuread provider - azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal)
